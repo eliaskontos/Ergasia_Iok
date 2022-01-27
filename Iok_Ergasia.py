@@ -7,6 +7,11 @@ df_bakery['Date'] =  pd.to_datetime(df_bakery['Date'])
 df_bakery['Day'] = df_bakery['Date'].dt.day_name() 
 
 
+df_bakery['quantity'] = 1
+
+df_bakery['productid'] = df_bakery['Product'].map(hash)
+
+
 print(df_bakery)
 
 products = df_bakery.Product
@@ -27,13 +32,7 @@ print(Products_percent)
 ###
 
 
-a = df_bakery.groupby('Transaction')
+df_transactions = df_bakery.groupby('Transaction').agg(Products= ('Product',  ', '.join), Total_items= ('quantity', 'sum'))
 
-print(a.first())
-
-print(a.get_group(2))
-
-b = df_bakery.groupby(['Product', 'Transaction']).agg('sum')
-
-print(b)
+print(df_transactions)
 
