@@ -6,13 +6,13 @@ from pandasgui import show
 df_bake = pd.read_csv('bakery.csv', sep=",")
 
 df_score = pd.read_excel('Bakery_score.xlsx',sheet_name= 1, usecols= (0,5,6,7),header=0)  
-print(df_score)
+#print(df_score)
 
 df_bake = df_bake[df_bake.Product != 'NONE']
 
 df_bakery = df_bake.merge(df_score, on='Record_id')
 
-print(df_bakery)
+#print(df_bakery)
 
 
 
@@ -52,7 +52,7 @@ df_bakery['quantity'] = 1
 df_bakery['productid'] = df_bakery['Product'].map(hash)
 
 
-print(df_bakery)
+#print(df_bakery)
 
 products = df_bakery.Product
 
