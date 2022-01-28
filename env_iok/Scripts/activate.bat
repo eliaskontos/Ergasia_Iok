@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=C:\Users\elias\source\repos\Iok Ergasia\env_iok
+set VIRTUAL_ENV=C:\Users\elias\Source\Repos\Ergasia_Iok\env_iok
 
 if not defined PROMPT set PROMPT=$P$G
 

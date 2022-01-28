@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\elias\source\repos\Iok Ergasia\env_iok"
+VIRTUAL_ENV="C:\Users\elias\Source\Repos\Ergasia_Iok\env_iok"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
