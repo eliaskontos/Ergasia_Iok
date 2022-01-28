@@ -33,6 +33,19 @@ print(Products_percent)
 
 
 df_transactions = df_bakery.groupby('Transaction').agg(Products= ('Product',  ', '.join), Total_items= ('quantity', 'sum'))
-
 print(df_transactions)
+
+df_transactions = df_bakery.groupby('Transaction')
+print(df_transactions.get_group(2))
+
+#katigories 
+
+# prwi mesimeri klp
+
+##score sinoliko kai ana product
+
+
+print(products.unique())
+
+
 
