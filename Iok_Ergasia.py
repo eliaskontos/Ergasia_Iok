@@ -1,5 +1,8 @@
 ﻿import pandas as pd
 
+from pandasgui import show
+
+
 df_bake = pd.read_csv('bakery.csv', sep=",")
 
 df_score = pd.read_excel('Bakery_score.xlsx',sheet_name= 1, usecols= (0,5,6,7),header=0)  
@@ -11,13 +14,17 @@ df_bakery = df_bake.merge(df_score, on='Record_id')
 
 print(df_bakery)
 
-df_bakery['Date'] =  pd.to_datetime(df_bakery['Date'])
 
-df_bakery['Time'] =  pd.to_datetime(df_bakery['Time'])
 
-df_bakery['Day'] = df_bakery['Date'].dt.day_name() 
+df_bakery['DateTime'] =  pd.to_datetime(df_bakery['Date'] + df_bakery['Time'], format='%m/%d/%Y%H:%M:%S')
 
-df_bakery['Month'] = df_bakery['Date'].dt.month_name()
+#df_bakery['DateTime'] =  pd.to_datetime(df_bakery['DateTime'])
+
+df_bakery['Time'] = pd.to_datetime(df_bakery['Time'])
+
+df_bakery['Day'] = df_bakery['DateTime'].dt.day_name() 
+
+df_bakery['Month'] = df_bakery['DateTime'].dt.month_name()
 
 s = {7 : 'Morning',
     8 :'Morning', 
@@ -68,9 +75,11 @@ print(Products_percent)
 df_transactions = df_bakery.groupby('Transaction').agg(Products= ('Product',  ', '.join), Total_items= ('quantity', 'sum'), Total_score= ('Value_Score', 'sum'))
 print(df_transactions)
 
+df_bakery = df_bakery.drop(columns=['Product', 'Record_id','Value','Value_Score','productid','Product_Category', 'quantity' ], axis=1)
 
+df = pd.merge(df_transactions,df_bakery[df_bakery.duplicated(subset='Transaction', keep='first') == False], on='Transaction')
 
-
+print(df)
 #katigories 
 
 # prwi mesimeri klp
@@ -81,4 +90,7 @@ print(df_transactions)
 #print(products.unique())
 
 
+df.to_excel("transactions.xlsx")
 
+
+show(df)
