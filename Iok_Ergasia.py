@@ -20,7 +20,7 @@ df_bakery['DateTime'] =  pd.to_datetime(df_bakery['Date'] + df_bakery['Time'], f
 
 #df_bakery['DateTime'] =  pd.to_datetime(df_bakery['DateTime'])
 
-df_bakery['Time'] = pd.to_datetime(df_bakery['Time'])
+#df_bakery['Time'] = pd.to_datetime(df_bakery['Time'])
 
 df_bakery['Day'] = df_bakery['DateTime'].dt.day_name() 
 
@@ -44,7 +44,7 @@ s = {7 : 'Morning',
     22:'Evening',
     23:'Evening'}
 
-df_bakery['Session'] = (df_bakery['Time'].dt.hour).map(s)
+df_bakery['Session'] = (pd.to_datetime(df_bakery['Time']).dt.hour).map(s)
 
 
 df_bakery['quantity'] = 1
@@ -72,7 +72,7 @@ print(Products_percent)
 ###
 
 
-df_transactions = df_bakery.groupby('Transaction').agg(Products= ('Product',  ', '.join),Categories= ('Product_Category',  ' / '.join) ,Total_items= ('quantity', 'sum'), Total_score= ('Value_Score', 'sum'))
+df_transactions = df_bakery.groupby('Transaction').agg(Products= ('Product',  ', '.join),Categories= ('Product_Category',  ' - '.join) ,Total_items= ('quantity', 'sum'), Total_score= ('Value_Score', 'sum'))
 print(df_transactions)
 
 df_bakery = df_bakery.drop(columns=['Product', 'Record_id','Value','Value_Score','productid','Product_Category', 'quantity' ], axis=1)
@@ -89,7 +89,7 @@ def score(x):
     else:
         return'Unkown'
 
-df['Value']= df['Total_score'].apply(score)
+df['Transaction_Value']= df['Total_score'].apply(score)
 
 print(df)
 #katigories 
