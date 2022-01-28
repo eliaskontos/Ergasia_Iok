@@ -72,12 +72,24 @@ print(Products_percent)
 ###
 
 
-df_transactions = df_bakery.groupby('Transaction').agg(Products= ('Product',  ', '.join), Total_items= ('quantity', 'sum'), Total_score= ('Value_Score', 'sum'))
+df_transactions = df_bakery.groupby('Transaction').agg(Products= ('Product',  ', '.join),Categories= ('Product_Category',  ' / '.join) ,Total_items= ('quantity', 'sum'), Total_score= ('Value_Score', 'sum'))
 print(df_transactions)
 
 df_bakery = df_bakery.drop(columns=['Product', 'Record_id','Value','Value_Score','productid','Product_Category', 'quantity' ], axis=1)
 
 df = pd.merge(df_transactions,df_bakery[df_bakery.duplicated(subset='Transaction', keep='first') == False], on='Transaction')
+
+def score(x):
+    if (x >= 1) and (x < 3):
+        return 'Low'
+    elif (x >= 3) and (x < 5 ):
+        return 'Medium'
+    elif (x >= 5) :
+        return'High'
+    else:
+        return'Unkown'
+
+df['Value']= df['Total_score'].apply(score)
 
 print(df)
 #katigories 
