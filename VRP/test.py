@@ -19,9 +19,9 @@ for i in range(0, 100):
     dem= random.randint(1, 6)
     xx = random.randint(0, 100)
     yy = random.randint(0, 100)
-    cust = Nodes(id, dem, xx, yy)
+    cust = Node(id, dem, xx, yy)
     all_nodes.append(cust)
     customers.append(cust)
 
 
-    
+
